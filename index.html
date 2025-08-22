@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apoio Jovem - CIEE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    
+    :root {
+      --azul-escuro: #003366;
+      --azul-claro: #007BFF;
+      --amarelo: #FFD500;
+      --cinza: #f5f7fa;
+      --branco: #fff;
+      --verde: #28a745;
+      --rosa: #e83e8c;
+      --vermelho: #dc3545;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background: var(--cinza); 
+      color:#333; 
+      line-height:1.6;
+      padding-top: 70px;
+      scroll-behavior: smooth;
+    }
+
+    /* Navegação */
+    .navbar {
+      background: var(--azul-escuro);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+
+    .logo {
+      color: var(--branco);
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-link {
+      color: var(--branco);
+      text-decoration: none;
+      font-weight: 600;
+      transition:0.3s;
+      padding: 8px 15px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link:hover {
+      color: var(--amarelo);
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--azul-escuro), var(--azul-claro));
+      color: var(--branco);
+      padding:50px 20px;
+      text-align:center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,128C960,96,1056,96,1152,117.3C1248,139,1344,181,1392,202.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+      background-size: cover;
+      animation: wave 10s linear infinite;
+    }
+    @keyframes wave {
+      0% { background-position-x: 0; }
+      100% { background-position-x: 1000px; }
+    }
+    header h1 {
+      margin:0; 
+      font-size:2.5rem; 
+      font-weight:700;
+      position: relative;
+      animation: fadeIn 1.5s ease;
+    }
+    header p {
+      margin-top:10px; 
+      font-size:1.1rem; 
+      font-style:italic;
+      position: relative;
+      animation: fadeIn 2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Seções e Cards */
+    section {
+      padding:50px 20px;
+      max-width:1100px;
+      margin:auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      color: var(--azul-escuro);
+      margin-bottom:25px;
+      font-size:1.8rem;
+      border-left:5px solid var(--azul-claro);
+      padding-left:10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card {
+      background: var(--branco);
+      padding:25px;
+      border-radius:15px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom:25px;
+      transition:transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 0;
+      background: var(--azul-claro);
+      transition: height 0.5s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .card:hover::before {
+      height: 100%;
+    }
+    .card h3 {
+      margin-bottom:10px;
+      color: var(--azul-claro);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Botões */
+    .btn {
+      display:inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--azul-claro), var(--azul-escuro));
+      color: var(--branco);
+      padding:12px 20px;
+      border-radius:30px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.3s;
+      border:none;
+      cursor:pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, var(--azul-escuro), var(--azul-claro));
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-emergencia {
+      background: linear-gradient(135deg, #ff4b4b, #d00000);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Elementos de formulário */
+    textarea {
+      width:100%; 
+      padding:15px; 
+      border-radius:10px; 
+      border:1px solid #ccc;
+      margin-bottom:10px;
+      resize:none;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s;
+    }
+    textarea:focus {
+      border-color: var(--azul-claro);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    }
+
+    /* Ranking */
+    .ranking {
+      list-style:none;
+      padding:0;
+    }
+    .ranking li {
+      padding:10px;
+      background:#f1f1f1;
+      margin-bottom:8px;
+      border-radius:8px;
+      font-weight:600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s;
+    }
+    .ranking li:hover {
+      transform: translateX(5px);
+      background: #e6e6e6;
+    }
+
+    /* Accordion */
+    .accordion {
+      margin-top: 15px;
+    }
+    .accordion-item {
+      margin-bottom: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .accordion-header {
+      background: var(--azul-escuro);
+      color: white;
+      padding: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .accordion-header:hover {
+      background: #002244;
+    }
+    .accordion-content {
+      background: white;
+      padding: 0 15px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .accordion-content.active {
+      padding: 15px;
+      max-height: 300px;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      width: 100%;
+      background: #e0e0e0;
+      border-radius: 10px;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 10px;
+      background: linear-gradient(90deg, var(--azul-claro), var(--verde));
+      border-radius: 10px;
+      width: 0;
+      transition: width 1s ease;
+    }    /* Carrossel */
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .carousel-inner {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 100%;
+    }
+
+    .carousel-item {
+      min-width: 100%;
+      position: relative;
+      height: 100%;
+    }
+
+    .carousel-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.7);
+    }
+
+    .carousel-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 2;
+      width: 80%;
+    }
+
+    .carousel-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .carousel-content p {
+      font-size: 1.2rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .carousel-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 15px;
+      cursor: pointer;
+      z-index: 3;
+      font-size: 20px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    .carousel-control:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    .carousel-control.prev {
+      left: 15px;
+    }
+
+    .carousel-control.next {
+      right: 15px;
+    }
+
+    .carousel-indicators {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 3;
+    }
+
+    .carousel-indicators .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .carousel-indicators .indicator.active {
+      background: white;
+    }
+
+    /* Popup de Confirmação */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transform: translateY(-50px);
+      transition: transform 0.5s;
+    }
+
+    .popup-overlay.active .popup {
+      transform: translateY(0);
+    }
+
+    .popup-icon {
+      font-size: 4rem;
+      color: var(--verde);
+      margin-bottom: 20px;
+    }
+
+    .popup h3 {
+      color: var(--azul-escuro);
+      margin-bottom: 15px;
+    }
+
+    .popup p {
+      margin-bottom: 25px;
+      color: #555;
+    }
+
+    /* Flip card */
+    .flip-card {
+      perspective: 1000px;
+      height: 200px;
+      margin: 15px 0;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .flip-card-front {
+      background: var(--azul-claro);
+      color: white;
+    }
+    .flip-card-back {
+      background: var(--verde);
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    /* Quiz */
+    .quiz-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: var(--branco);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--cinza);
+    }
+
+    .quiz-header h1 {
+      color: var(--azul-escuro);
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .quiz-header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .question-count {
+      text-align: center;
+      font-weight: 600;
+      color: var(--azul-escuro);
+      margin-bottom: 15px;
+    }
+
+    .question {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--azul-claro);
+    }
+
+    .question-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--azul-escuro);
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option {
+      padding: 15px;
+      background: var(--branco);
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+
+    .option:hover {
+      background: #f0f8ff;
+      border-color: var(--azul-claro);
+      transform: translateX(5px);
+    }
+
+    .option.selected {
+      background: #e6f7ff;
+      border-color: var(--azul-claro);
+      font-weight: 600;
+    }
+
+    .option.correct {
+      background: #d4edda;
+      border-color: var(--verde);
+    }
+
+    .option.incorrect {
+      background: #f8d7da;
+      border-color: var(--vermelho);
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    .results {
+      text-align: center;
+      padding: 30px;
+      display: none;
+    }
+
+    .score-text {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--azul-escuro);
+    }
+
+    .score-value {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--verde);
+      margin: 20px 0;
+    }
+
+    .score-message {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    .feedback {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .feedback h3 {
+      color: var(--azul-escuro);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--cinza);
+      padding-bottom: 10px;
+    }
+
+    .feedback-item {
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      background: var(--branco);
+      border-left: 4px solid var(--azul-claro);
+    }
+
+    .feedback-item.correct {
+      border-left-color: var(--verde);
+    }
+
+    .feedback-item.incorrect {
+      border-left-color: var(--vermelho);
+    }
+
+    .emoji {
+      font-size: 4rem;
+      margin: 20px 0;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--azul-escuro);
+      color:#ccc;
+      text-align:center;
+      padding:20px;
+      font-size:0.9rem;
+    }
+
+    /* Responsividade */
+    @media screen and (max-width: 768px) {
+      body {
+        padding-top: 60px;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        flex-direction: column;
+        background-color: var(--azul-escuro);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+        padding: 20px 0;
+        gap: 0;
+      }
+
+      .nav-menu.active {
+        left: 0;
+      }
+
+      .nav-item {
+        margin: 15px 0;
+      }
+
+      .nav-link {
+        padding: 12px 20px;
+        justify-content: center;
+      }
+
+      .navigation {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra de navegação responsiva -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-hands-helping"></i>
+        <span>Apoio Jovem</span>
+      </a>
+      
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#educacao" class="nav-link">
+            <i class="fas fa-book"></i>
+            <span>Educação</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#ajuda" class="nav-link">
+            <i class="fas fa-first-aid"></i>
+            <span>Ajuda</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#quiz" class="nav-link">
+            <i class="fas fa-question-circle"></i>
+            <span>Quiz</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#escuta" class="nav-link">
+            <i class="fas fa-comments"></i>
+            <span>Escuta Segura</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#gamificacao" class="nav-link">
+            <i class="fas fa-gamepad"></i>
+            <span>Gamificação</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#mitos" class="nav-link">
+            <i class="fas fa-comment-dots"></i>
+            <span>Mitos & Verdades</span>
+          </a>
+        </li>
+      </ul>
+      
+      <button class="hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+   <!-- Tela inicial com Carrossel -->
+  <header>
+    <div class="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="carousel-content">
+            <h1>🌟 Apoio Jovem</h1>
+            <p>Aqui você tem voz, apoio e informação.</p>
+          </div>
+          <div class="carousel-image" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');"></div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-content">
+            <h1>🤝 Espaço Seguro</h1>
+            <p>Compartilhe suas experiências de forma anônima.</p>
+          </div>
+          <div class="carousel-image" style="background-image: url('Imagem\ do\ WhatsApp\ de\ 2025-08-21\ à\(s\)\ 13.57.19_d05c2efa.jpg');"></div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-content">
+            <h1>💪 Você Não Está Sozinha</h1>
+            <p>Encontre apoio e informações importantes.</p>
+          </div>
+          <div class="carousel-image" style="background-image: url('Imagem\ do\ WhatsApp\ de\ 2025-08-22\ à\(s\)\ 10.12.20_248d9142.jpg');"></div>
+        </div>
+      </div>
+      <button class="carousel-control prev" onclick="moveCarousel(-1)">&#10094;</button>
+      <button class="carousel-control next" onclick="moveCarousel(1)">&#10095;</button>
+      <div class="carousel-indicators"></div>
+    </div>
+    <div class="float" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 5;">
+      <i class="fas fa-chevron-down" style="font-size: 2rem;"></i>
+    </div>
+  </header>
+
+  <!-- Módulo 1: Educação -->
+  <section id="educacao">
+    <h2><i class="fas fa-book"></i> Educação e Prevenção</h2>
+    
+    <div class="card">
+      <h3><i class="fas fa-exclamation-circle"></i> O que é violência sexual?</h3>
+      <p>Violência sexual é qualquer ato sexual ou tentativa de obter ato sexual, comentários ou investidas sexuais indesejadas, ou tráfico contra a sexualidade de uma pessoa, mediante coerção, independente da relação com a vítima.</p>
+      
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Assédio Sexual</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p>É a conduta de natureza sexual que cause constrangimento, humilhação ou que limite o acesso de alguém a oportunidades. Pode ser verbal, não verbal ou físico.</p>
+          </div>
+        </div>
+        
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Importunação Sexual</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p>Pratica ato libidinoso na presença de alguém e sem sua anuência. É crime previsto no artigo 215-A do Código Penal.</p>
+          </div>
+        </div>
+        
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Estupro</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p>Constranger alguém, mediante violência ou grave ameaça, a ter conjunção carnal ou a praticar ou permitir que com ele se pratique outro ato libidinoso.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <h3><i class="fas fa-handshake"></i> Consentimento x Manipulação</h3>
+      <p>Entender a diferença entre consentimento e manipulação é fundamental para relacionamentos saudáveis.</p>
+      
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h4>Consentimento</h4>
+            <p>Clique para virar</p>
+          </div>
+          <div class="flip-card-back">
+            <p>É um acordo voluntário, explícito e entusiástico entre as partes envolvidas. Deve ser informado e reversível a qualquer momento.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h4>Manipulação</h4>
+            <p>Clique para virar</p>
+          </div>
+          <div class="flip-card-back">
+            <p>É o uso de táticas emocionais ou psicológicas para coagir alguém a fazer algo que não quer, como chantagem, culpa ou pressão.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Módulo 2: Ajuda -->
+  <section id="ajuda">
+    <h2><i class="fas fa-first-aid"></i> Canal de Ajuda</h2>
+    
+    <div class="card">
+      <h3><i class="fas fa-bell"></i> Botão de Emergência</h3>
+      <p>Em caso de perigo iminente, utilize os botões abaixo para buscar ajuda imediata:</p>
+      
+      <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+        <a class="btn btn-emergencia" href="tel:190"><i class="fas fa-phone"></i> Ligar 190 (Polícia)</a>
+        <a class="btn btn-emergencia" href="tel:180"><i class="fas fa-phone"></i> Ligar 180 (Violência contra mulher)</a>
+        <a class="btn btn-emergencia" href="tel:100"><i class="fas fa-phone"></i> Ligar 100 (Direitos humanos)</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <h3><i class="fas fa-address-book"></i> Contatos úteis</h3>
+      <p>Entre em contato com estes serviços para obter ajuda e orientação:</p>
+      
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span><i class="fas fa-building"></i> CIEE - Centro de Integração Empresa-Escola</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Telefone:</strong> 0800 723 6000</p>
+            <p><strong>Site:</strong> www.ciee.org.br</p>
+            <p><strong>Atendimento:</strong> Orientação para jovens sobre direitos e prevenção</p>
+          </div>
+        </div>
+        
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span><i class="fas fa-home"></i> CRAS - Centro de Referência de Assistência Social</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p><strong>O que oferece:</strong> Atendimento psicossocial, orientação e encaminhamento para rede de proteção</p>
+            <p><strong>Como encontrar:</strong> Consulte o CRAS mais próximo da sua casa na prefeitura municipal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Módulo 3: Quiz -->
+  <section id="quiz">
+    <h2><i class="fas fa-question-circle"></i> Quiz de Prevenção</h2>
+    
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <h1><i class="fas fa-graduation-cap"></i> Quiz de Prevenção</h1>
+        <p>Teste seus conhecimentos sobre violência sexual, consentimento e direitos</p>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+      <div class="question-count" id="question-count">Pergunta 1 de 10</div>
+
+      <div id="quiz-content">
+        <div class="question">
+          <div class="question-text" id="question-text"></div>
+          <div class="options" id="options-container"></div>
+        </div>
+
+        <div class="navigation">
+          <button class="btn" id="prev-btn" disabled><i class="fas fa-arrow-left"></i> Anterior</button>
+          <button class="btn" id="next-btn">Próxima <i class="fas fa-arrow-right"></i></button>
+          <button class="btn" id="submit-btn" style="display: none;">Finalizar Quiz</button>
+        </div>
+      </div>
+
+      <div id="results" class="results">
+        <div class="emoji" id="emoji">🎓</div>
+        <div class="score-text">Sua pontuação:</div>
+        <div class="score-value" id="score-value">0/10</div>
+        <div class="score-message" id="score-message"></div>
+        
+        <button class="btn" id="restart-btn"><i class="fas fa-redo"></i> Fazer Novamente</button>
+        
+        <div class="feedback">
+          <h3><i class="fas fa-info-circle"></i> Feedback</h3>
+          <div id="feedback-container"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Módulo 4: Escuta -->
+  <section id="escuta">
+    <h2><i class="fas fa-comments"></i> Espaço de Escuta Segura</h2>
+    
+    <div class="card">
+      <h3><i class="fas fa-headset"></i> Chat de Apoio</h3>
+      <p>Em breve: Chat anônimo com psicólogos e voluntários treinados para oferecer escuta qualificada.</p>
+      
+      <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin: 15px 0;">
+        <p><strong>Status do serviço:</strong> <span style="color: var(--verde);">Em implementação</span></p>
+        <p>Estamos trabalhando para oferecer esse serviço com toda a segurança e privacidade que você merece.</p>
+      </div>
+    </div>
+    
+    <div class="card">
+      <h3><i class="fas fa-pencil-alt"></i> Relato Anônimo</h3>
+      <p>Compartilhe sua experiência de forma anônima. Seu relato pode ajudar outras pessoas.</p>
+      
+      <textarea rows="5" placeholder="Escreva aqui seu relato (não inclua informações pessoais)..."></textarea>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <div>
+          <input type="checkbox" id="anonimo">
+          <label for="anonimo">Manter anonimato</label>
+        </div>
+        <button class="btn" onclick="alert('Relato enviado com sucesso. Obrigado por compartilhar sua experiência.')">Enviar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Módulo 5: Gamificação -->
+  <section id="gamificacao">
+    <h2><i class="fas fa-gamepad"></i> Gamificação da Prevenção</h2>
+    
+    <div class="card">
+      <h3><i class="fas fa-trophy"></i> Sistema de Pontuação</h3>
+      <p>Complete atividades educativas, quizzes e desafios para ganhar pontos e subir no ranking!</p>
+      
+      <div style="display: flex; gap: 15px; flex-wrap: wrap; margin: 15px 0;">
+        <div style="background: #f0f8ff; padding: 10px; border-radius: 10px; text-align: center; flex: 1;">
+          <i class="fas fa-check-circle" style="color: var(--verde); font-size: 2rem;"></i>
+          <p>Atividades completas</p>
+          <h4 id="completed-activities">0/5</h4>
+        </div>
+        
+        <div style="background: #f0f8ff; padding: 10px; border-radius: 10px; text-align: center; flex: 1;">
+          <i class="fas fa-star" style="color: var(--amarelo); font-size: 2rem;"></i>
+          <p>Pontos conquistados</p>
+          <h4 id="total-points">0 pts</h4>
+        </div>
+        
+        <div style="background: #f0f8ff; padding: 10px; border-radius: 10px; text-align: center; flex: 1;">
+          <i class="fas fa-medal" style="color: var(--azul-claro); font-size: 2rem;"></i>
+          <p>Seu nível</p>
+          <h4 id="user-level">Iniciante</h4>
+        </div>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-bar" id="level-progress" style="width: 0%"></div>
+      </div>
+      <p>Próximo nível: <span id="next-level-points">100</span> pontos</p>
+    </div>
+    
+    <div class="card">
+      <h3><i class="fas fa-chart-line"></i> Ranking</h3>
+      <p>Confira as pessoas com maior pontuação esta semana (apelidos):</p>
+      
+      <ul class="ranking">
+        <li><i class="fas fa-crown" style="color: gold;"></i> 🌟 Guerreiro_21 - 320 pts</li>
+        <li><i class="fas fa-medal" style="color: silver;"></i> 🔥 ForçaJovem - 295 pts</li>
+        <li><i class="fas fa-medal" style="color: #cd7f32;"></i> 💡 Esperança22 - 280 pts</li>
+        <li><i class="fas fa-user" style="color: var(--azul-claro);"></i> 🦋 BorboletaAzul - 275 pts</li>
+        <li><i class="fas fa-user" style="color: var(--azul-claro);"></i> 🐉 DragãoProtetor - 260 pts</li>
+      </ul>
+      
+      <button class="btn" onclick="alert('Recurso em desenvolvimento! Em breve você poderá desafiar amigos.')">Desafiar um Amigo</button>
+    </div>
+  </section>
+
+  <!-- Módulo 6: Mitos & Verdades -->
+  <section id="mitos">
+    <h2><i class="fas fa-comment-dots"></i> Mitos & Verdades</h2>
+    
+    <div class="card">
+      <h3><i class="fas fa-question"></i> Teste seus conhecimentos</h3>
+      <p>Descubra o que é mito e o que é verdade sobre violência sexual:</p>
+      
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Mito: "Roupa curta justifica violência"</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Verdade:</strong> Nenhum tipo de roupa justifica ou excusa violência sexual. A culpa é sempre do agressor, nunca da vítima.</p>
+          </div>
+        </div>
+        
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Mito: "Homens não sofrem violência sexual"</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Verdade:</strong> Homens também são vítimas de violência sexual, embora subnotifiquem os casos devido a estigmas sociais.</p>
+          </div>
+        </div>
+        
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Mito: "É apenas brincadeira"</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Verdade:</strong> Qualquer toque ou comentário de natureza sexual não consentido é violência, não brincadeira.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Mito: "Se não houve força física, não foi violência"</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Verdade:</strong> Ameaças, coerção psicológica e chantagem emocional também caracterizam violência sexual, mesmo sem força física.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Mito: "Casais não podem sofrer violência sexual"</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Verdade:</strong> Relacionamentos não anulam a necessidade de consentimento. Sexo não consentido no casamento também é violência.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Mito: "Vítimas 'verdadeiras' sempre denunciam"</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Verdade:</strong> Muitas vítimas não denunciam por medo, vergonha, trauma ou desconfiança no sistema. A falta de denúncia não invalida a violência.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Apoio Jovem - Em parceria com CIEE</p>
+    <p>Este site oferece informações educativas e não substitui atendimento profissional</p>
+  </footer>
+
+  <script>
+    
+    // ===== NAVEGAÇÃO RESPONSIVA =====
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+
+    hamburger.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+      
+      const icon = hamburger.querySelector("i");
+      if (navMenu.classList.contains("active")) {
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-times");
+      } else {
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-bars");
+      }
+    });
+
+    document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+      if (window.innerWidth < 768) {
+        navMenu.classList.remove("active");
+        const icon = hamburger.querySelector("i");
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-bars");
+      }
+    }));
+        // ===== CARROSSEL =====
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-item');
+    const indicatorsContainer = document.querySelector('.carousel-indicators');
+    const carouselInner = document.querySelector('.carousel-inner');
+
+    // Criar indicadores
+    slides.forEach((_, i) => {
+      const indicator = document.createElement('div');
+      indicator.classList.add('indicator');
+      if (i === 0) indicator.classList.add('active');
+      indicator.addEventListener('click', () => {
+        currentSlide = i;
+        updateCarousel();
+      });
+      indicatorsContainer.appendChild(indicator);
+    });
+
+    function moveCarousel(direction) {
+      currentSlide = (currentSlide + direction + slides.length) % slides.length;
+      updateCarousel();
+    }
+
+    function updateCarousel() {
+      carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Atualizar indicadores
+      document.querySelectorAll('.indicator').forEach((indicator, i) => {
+        indicator.classList.toggle('active', i === currentSlide);
+      });
+    }
+
+    // Auto-avanço do carrossel
+    let carouselInterval = setInterval(() => {
+      moveCarousel(1);
+    }, 5000);
+
+    // Pausar ao passar o mouse
+    const carousel = document.querySelector('.carousel');
+    carousel.addEventListener('mouseenter', () => {
+      clearInterval(carouselInterval);
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      carouselInterval = setInterval(() => {
+        moveCarousel(1);
+      }, 5000);
+    });
+
+    function checkScreenSize() {
+      if (window.innerWidth >= 768) {
+        navMenu.classList.remove("active");
+        const icon = hamburger.querySelector("i");
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-bars");
+      }
+    }
+
+    window.addEventListener('resize', checkScreenSize);
+
+    // ===== ANIMAÇÃO DE SCROLL =====
+    function animateOnScroll() {
+      const sections = document.querySelectorAll('section');
+      
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (sectionTop < windowHeight * 0.85) {
+          section.classList.add('visible');
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+
+    // ===== ACCORDION =====
+    function toggleAccordion(element) {
+      const content = element.nextElementSibling;
+      const icon = element.querySelector('i');
+      
+      content.classList.toggle('active');
+      
+      if (content.classList.contains('active')) {
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+      } else {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      }
+    }
+
+    // ===== SISTEMA DE PONTUAÇÃO =====
+    let userScore = 0;
+    let completedActivities = 0;
+    const totalPointsElement = document.getElementById('total-points');
+    const completedActivitiesElement = document.getElementById('completed-activities');
+    const userLevelElement = document.getElementById('user-level');
+    const levelProgressElement = document.getElementById('level-progress');
+    const nextLevelPointsElement = document.getElementById('next-level-points');
+
+    function updateScore(points) {
+      userScore += points;
+      totalPointsElement.textContent = `${userScore} pts`;
+      
+      // Atualizar progresso de nível
+      const nextLevelThreshold = 100;
+      const progressPercentage = Math.min((userScore / nextLevelThreshold) * 100, 100);
+      levelProgressElement.style.width = `${progressPercentage}%`;
+      
+      // Atualizar nível do usuário
+      if (userScore >= 300) {
+        userLevelElement.textContent = "Expert";
+      } else if (userScore >= 200) {
+        userLevelElement.textContent = "Avançado";
+      } else if (userScore >= 100) {
+        userLevelElement.textContent = "Intermediário";
+      } else {
+        userLevelElement.textContent = "Iniciante";
+      }
+      
+      nextLevelPointsElement.textContent = Math.max(100, Math.ceil(userScore / 100) * 100);
+    }
+
+    function completeActivity() {
+      completedActivities++;
+      completedActivitiesElement.textContent = `${completedActivities}/5`;
+    }
+    
+
+    // ===== QUIZ =====
+    const questions = [
+      {
+        question: "O que caracteriza assédio sexual?",
+        options: [
+          "Elogios constantes no ambiente de trabalho",
+          "Cantadas indesejadas e insistentes",
+          "Ambas as alternativas anteriores",
+          "Nenhuma das alternativas"
+        ],
+        correctIndex: 1,
+        explanation: "O assédio sexual é caracterizado por cantadas, insinuações ou investidas indesejadas e insistentes, que causam constrangimento e desconforto. Elogios respeitosos e apropriados ao ambiente não configuram assédio."
+      },
+      {
+        question: "O consentimento pode ser retirado a qualquer momento?",
+        options: [
+          "Sim, a qualquer momento",
+          "Não, depois de dado não pode ser retirado",
+          "Apenas se a outra pessoa concordar",
+          "Apenas antes do início do ato sexual"
+        ],
+        correctIndex: 0,
+        explanation: "O consentimento deve ser livre, esclarecido e pode ser retirado a qualquer momento. Qualquer atividade sexual sem consentimento contínuo configura violência."
+      },
+      {
+        question: "Qual é o telefone do Disque Direitos Humanos?",
+        options: [
+          "190",
+          "181",
+          "100",
+          "180"
+        ],
+        correctIndex: 2,
+        explanation: "O Disque 100 é o canal de denúncia de violações de direitos humanos, incluindo violência sexual. O 190 é da Polícia, o 181 para denúncias gerais e o 180 para violência contra a mulher."
+      },
+      {
+        question: "O que NÃO caracteriza violência sexual?",
+        options: [
+          "Envio de nudes não solicitados",
+          "Comentários de natureza sexual não desejados",
+          "Relação sexual com pessoa embriagada",
+          "Relação sexual consentida entre adultos"
+        ],
+        correctIndex: 3,
+        explanation: "Relação sexual consentida entre adultos não configura violência sexual. As outras opções são formas de violência: envio de nudes não solicitados (assédio virtual), comentários indesejados (assédio verbal) e relação com pessoa embriagada (estupro de vulnerável)."
+      },
+      {
+        question: "Qual afirmação sobre consentimento é VERDADEIRA?",
+        options: [
+          "Silêncio significa consentimento",
+          "Roupas curtas indicam consentimento",
+          "Consentimento deve ser explícito e entusiástico",
+          "Consentimento dado uma vez vale para sempre"
+        ],
+        correctIndex: 2,
+        explanation: "Consentimento deve ser explícito, entusiástico e contínuo. Silêncio não significa consentimento, roupas não indicam consentimento e o consentimento precisa ser dado para cada ato específico."
+      },
+      {
+        question: "O que é importunação sexual?",
+        options: [
+          "Praticar ato libidinoso na presença de alguém sem sua anuência",
+          "Não atender pedido sexual do parceiro",
+          "Falar sobre sexualidade em público",
+          "Ter relacionamentos sexuais frequentes"
+        ],
+        correctIndex: 0,
+        explanation: "Importunação sexual é praticar ato libidinoso (de natureza sexual) na presença de alguém sem sua anuência. É crime previsto no artigo 215-A do Código Penal."
+      },
+      {
+        question: "Qual comportamento NÃO configura violência sexual?",
+        options: [
+          "Mostrar conteúdo pornográfico para alguém contra sua vontade",
+          "Tocar o corpo de alguém sem consentimento",
+          "Expressar desejo sexual por alguém de forma respeitosa",
+          "Forçar alguém a presenciar cenas de sexo"
+        ],
+        correctIndex: 2,
+        explanation: "Expressar desejo sexual de forma respeitosa, sem insistência ou coerção, não configura violência sexual. As demais opções são formas de violência sexual."
+      },
+      {
+        question: "Qual é a pena prevista para estupro no Brasil?",
+        options: [
+          "Detenção de 6 meses a 1 ano",
+          "Prisão de 1 a 5 anos",
+          "Prisão de 6 a 10 anos",
+          "Prisão de 8 a 15 anos"
+        ],
+        correctIndex: 2,
+        explanation: "O estupro é crime previsto no artigo 213 do Código Penal, com pena de reclusão de 6 a 10 anos. A pena pode ser aumentada em situações específicas."
+      },
+      {
+        question: "O que fazer se você for vítima de violência sexual?",
+        options: [
+          "Tomar banho para eliminar evidências",
+          "Procurar ajuda médica e denunciar às autoridades",
+          "Esquecer o acontecido para superar mais rápido",
+          "Confrontar o agressor sozinho(a)"
+        ],
+        correctIndex: 1,
+        explanation: "É essencial procurar ajuda médica para receber cuidados e preservar evidências, e denunciar às autoridades. Tomar banho pode eliminar provas importantes."
+      },
+      {
+        question: "Qual desses é um mito sobre violência sexual?",
+        options: [
+          "A vítima sempre deve ser levada a sério",
+          "Homens também podem ser vítimas",
+          "A culpa é sempre do agressor, nunca da vítima",
+          "Roupas curtas provocam violência sexual"
+        ],
+        correctIndex: 3,
+        explanation: "A ideia de que roupas curtas provocam violência sexual é um mito. A culpa é sempre do agressor, independentemente do que a vítima vestia ou como se comportava."
+      }
+    ];
+
+    // Variáveis de estado do quiz
+    let currentQuestion = 0;
+    let score = 0;
+    let userAnswers = Array(questions.length).fill(null);
+
+    // Elementos do DOM do quiz
+    const questionCountElementQuiz = document.getElementById('question-count');
+    const questionTextElementQuiz = document.getElementById('question-text');
+    const optionsContainerQuiz = document.getElementById('options-container');
+    const progressBarQuiz = document.getElementById('progress-bar');
+    const prevBtnQuiz = document.getElementById('prev-btn');
+    const nextBtnQuiz = document.getElementById('next-btn');
+    const submitBtnQuiz = document.getElementById('submit-btn');
+    const quizContentElement = document.getElementById('quiz-content');
+    const resultsElement = document.getElementById('results');
+    const scoreValueElement = document.getElementById('score-value');
+    const scoreMessageElement = document.getElementById('score-message');
+    const feedbackContainer = document.getElementById('feedback-container');
+    const restartBtn = document.getElementById('restart-btn');
+    const emojiElement = document.getElementById('emoji');
+
+    // Inicializar o quiz
+    function initQuiz() {
+      showQuestion();
+      updateProgressBar();
+      
+      // Adicionar event listeners aos botões
+      prevBtnQuiz.addEventListener('click', goToPreviousQuestion);
+      nextBtnQuiz.addEventListener('click', goToNextQuestion);
+      submitBtnQuiz.addEventListener('click', showResults);
+      restartBtn.addEventListener('click', restartQuiz);
+    }
+
+    // Mostrar a pergunta atual
+    function showQuestion() {
+      const question = questions[currentQuestion];
+      
+      questionCountElementQuiz.textContent = `Pergunta ${currentQuestion + 1} de ${questions.length}`;
+      questionTextElementQuiz.textContent = question.question;
+      
+      optionsContainerQuiz.innerHTML = '';
+      
+      question.options.forEach((option, index) => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        
+        if (userAnswers[currentQuestion] === index) {
+          optionElement.classList.add('selected');
+        }
+        
+        optionElement.textContent = option;
+        optionElement.addEventListener('click', () => selectOption(index));
+        optionsContainerQuiz.appendChild(optionElement);
+      });
+      
+      // Atualizar estado dos botões
+      prevBtnQuiz.disabled = currentQuestion === 0;
+      
+      if (currentQuestion === questions.length - 1) {
+        nextBtnQuiz.style.display = 'none';
+        submitBtnQuiz.style.display = 'inline-flex';
+      } else {
+        nextBtnQuiz.style.display = 'inline-flex';
+        submitBtnQuiz.style.display = 'none';
+      }
+    }
+
+    // Selecionar uma opção
+    function selectOption(index) {
+      userAnswers[currentQuestion] = index;
+      
+      // Remover a seleção anterior
+      const options = optionsContainerQuiz.querySelectorAll('.option');
+      options.forEach(option => option.classList.remove('selected'));
+      
+      // Adicionar a seleção atual
+      options[index].classList.add('selected');
+    }
+
+    // Atualizar a barra de progresso
+    function updateProgressBar() {
+      const progress = ((currentQuestion + 1) / questions.length) * 100;
+      progressBarQuiz.style.width = `${progress}%`;
+    }
+
+    // Ir para a próxima pergunta
+    function goToNextQuestion() {
+      if (userAnswers[currentQuestion] !== null) {
+        currentQuestion++;
+        showQuestion();
+        updateProgressBar();
+      } else {
+        alert('Por favor, selecione uma resposta antes de continuar.');
+      }
+    }
+
+    // Voltar para a pergunta anterior
+    function goToPreviousQuestion() {
+      currentQuestion--;
+      showQuestion();
+      updateProgressBar();
+    }
+
+    // Mostrar os resultados
+    function showResults() {
+      // Calcular a pontuação
+      score = 0;
+      questions.forEach((question, index) => {
+        if (userAnswers[index] === question.correctIndex) {
+          score++;
+        }
+      });
+      
+      // Atualizar a pontuação do usuário no sistema geral
+      updateScore(score * 10); // 10 pontos por resposta correta
+      completeActivity();
+      
+      // Atualizar a exibição dos resultados
+      scoreValueElement.textContent = `${score}/${questions.length}`;
+      
+      // Definir mensagem com base na pontuação
+      if (score === questions.length) {
+        scoreMessageElement.textContent = 'Parabéns! Você demonstrou excelente conhecimento sobre o tema.';
+        emojiElement.textContent = '🎉';
+      } else if (score >= questions.length * 0.7) {
+        scoreMessageElement.textContent = 'Muito bom! Você tem um bom conhecimento, mas pode melhorar em alguns aspectos.';
+        emojiElement.textContent = '👍';
+      } else if (score >= questions.length * 0.5) {
+        scoreMessageElement.textContent = 'Bom effort! Continue aprendendo sobre o tema para se proteger e proteger os outros.';
+        emojiElement.textContent = '💪';
+      } else {
+        scoreMessageElement.textContent = 'É importante aprender mais sobre esse tema para sua segurança e dos outros.';
+        emojiElement.textContent = '📚';
+      }
+      
+      // Gerar feedback
+      feedbackContainer.innerHTML = '';
+      questions.forEach((question, index) => {
+        const feedbackItem = document.createElement('div');
+        feedbackItem.classList.add('feedback-item');
+        
+        if (userAnswers[index] === question.correctIndex) {
+          feedbackItem.classList.add('correct');
+          feedbackItem.innerHTML = `
+            <p><strong>Pergunta ${index + 1}:</strong> ${question.question}</p>
+            <p><i class="fas fa-check-circle" style="color: var(--verde);"></i> <strong>Sua resposta:</strong> ${question.options[userAnswers[index]]}</p>
+            <p><strong>Explicação:</strong> ${question.explanation}</p>
+          `;
+        } else {
+          feedbackItem.classList.add('incorrect');
+          feedbackItem.innerHTML = `
+            <p><strong>Pergunta ${index + 1}:</strong> ${question.question}</p>
+            <p><i class="fas fa-times-circle" style="color: var(--vermelho);"></i> <strong>Sua resposta:</strong> ${userAnswers[index] !== null ? question.options[userAnswers[index]] : 'Não respondida'}</p>
+            <p><i class="fas fa-check-circle" style="color: var(--verde);"></i> <strong>Resposta correta:</strong> ${question.options[question.correctIndex]}</p>
+            <p><strong>Explicação:</strong> ${question.explanation}</p>
+          `;
+        }
+        
+        feedbackContainer.appendChild(feedbackItem);
+      });
+      
+      // Esconder o quiz e mostrar os resultados
+      quizContentElement.style.display = 'none';
+      resultsElement.style.display = 'block';
+    }
+
+    // Reiniciar o quiz
+    function restartQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      userAnswers = Array(questions.length).fill(null);
+      
+      resultsElement.style.display = 'none';
+      quizContentElement.style.display = 'block';
+      
+      showQuestion();
+      updateProgressBar();
+    }
+    
+
+    // Iniciar o quiz quando a página carregar
+    window.addEventListener('load', initQuiz);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
